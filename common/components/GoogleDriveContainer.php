@@ -31,7 +31,7 @@ class GoogleDriveContainer extends Component
     }
 
     /**
-     * @param string $configFile json config file must be exists in project root directory and contains credentails of api access, download it from app dashboard in google console
+     * @param string $configFile json config file must be exists in project root directory and contains credentails of api access, download it from app dashboard in google api console
     */
     public function __construct($config)
     {
@@ -40,8 +40,8 @@ class GoogleDriveContainer extends Component
         try {
             $fileContent = file_get_contents(__DIR__ . '/../../' . $configFile);
         } catch(Exception $e) {
-            print_r($e->getMessage());
-            exit;
+            echo $e->getMessage();
+            die;
         }
         $config = json_decode($fileContent, true);
         $this->callbackUrl = $config['web']['redirect_uris'][0];

@@ -81,12 +81,11 @@ class SiteController extends Controller
             
             //via curl
             $filesRequest = new CurlFilesRequest($client);
-            $filesList = $filesRequest->getFiles();
-            
+        
             //via functions
-            // $drive = new \Google_Service_Drive($client);
-            // $filesRequest = new FunctionFilesRequest($drive);
-            // $filesList = $filesRequest->getFiles();
+            // $filesRequest = new FunctionFilesRequest($client);
+            
+            $filesList = $filesRequest->getFiles();
 
             $provider = new ArrayDataProvider([
                 'allModels' => $filesList,
@@ -96,10 +95,6 @@ class SiteController extends Controller
             return $this->render('fileList', [
                 'provider' => $provider,
             ]);
-
-            // return $this->render('fileList', [
-            //     'files' => $filesList,
-            // ]);
         } else {
             return $this->redirect(Yii::$app->googleDriveContainer->getCallbackUrl());
         }

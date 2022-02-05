@@ -23,6 +23,10 @@ class CurlFilesRequest implements GoogleFileAdapter
         return $this->retrieveAllFiles();
     }
 
+    function getFilePermissions($fileId) {
+        return null;
+    }
+
     function retrieveAllFiles() {
         $nextPageToken = '';
         $fields = '?maxResults=1000'. $nextPageToken .'&fields=items(id,title,fileSize,embedLink,ownerNames,modifiedDate,thumbnailLink),nextPageToken';
