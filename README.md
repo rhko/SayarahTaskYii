@@ -92,7 +92,7 @@ composer install"><pre>
 <li>
 Optional
 <ul dir="auto">
-    <li>I provided sample client_secret.json file in the project for test, if you need to provide your own google app you need to go <a href="https://console.developers.google.com" rel="nofollow">google developer console</a> and register your app then download and save file as client_secret.json and replace the original file in project root directory</li>
+    <li>I provided sample client_secret.json file in the project for test, if you need to provide your own google app you need to go <a href="https://console.developers.google.com" rel="nofollow">google developer console</a> and register your app then make callback url looks like <a href="http://{127.0.0.1}/index.php?r=site%2Fcallback" rel="nofollow">http://{127.0.0.1}/index.php?r=site%2Fcallback</a> then save file as client_secret.json and replace the original file in project root directory</li>
 </ul>
 </li>
 </ol>
