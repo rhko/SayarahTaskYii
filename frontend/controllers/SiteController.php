@@ -24,8 +24,6 @@ use yii\data\ArrayDataProvider;
  */
 class SiteController extends Controller
 {
-    private $target_url = 'http://127.0.0.1/index.php?r=site%2Findex';
-
     /**
      * {@inheritdoc}
      */
@@ -80,16 +78,16 @@ class SiteController extends Controller
             $client->setAccessToken(Yii::$app->session->get('access_token'));
             
             //via curl
-            $filesRequest = new CurlFilesRequest($client);
+            // $filesRequest = new CurlFilesRequest($client);
         
             //via functions
-            // $filesRequest = new FunctionFilesRequest($client);
+            $filesRequest = new FunctionFilesRequest($client);
             
             $filesList = $filesRequest->getFiles();
 
             $provider = new ArrayDataProvider([
                 'allModels' => $filesList,
-                'pagination' => false,
+                'pagination' => ['pageSize' => 20]
             ]);
             
             return $this->render('fileList', [
@@ -110,7 +108,7 @@ class SiteController extends Controller
         } else {
             $accessToken = $client->fetchAccessTokenWithAuthCode($request->get('code'));
             Yii::$app->session->set('access_token', $accessToken['access_token']);
-            return $this->redirect($this->target_url);
+            return $this->redirect(['site/index']);
         }
     }
 
