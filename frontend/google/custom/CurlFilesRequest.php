@@ -3,11 +3,12 @@
 namespace frontend\google\custom;
 
 use frontend\google\contracts\GoogleFileAdapter;
+use frontend\google\traits\CurlHelperTrait;
 use frontend\google\traits\FormatFieldsTrait;
 
 class CurlFilesRequest implements GoogleFileAdapter
 {
-    use FormatFieldsTrait;
+    use FormatFieldsTrait, CurlHelperTrait;
 
     private \Google_Client $client;
 
@@ -36,12 +37,7 @@ class CurlFilesRequest implements GoogleFileAdapter
             'Accept: application/json',
         ];
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
+        $response = $this->makeRequest($url, $headers);
         $files = json_decode($response, true);
         return $this->formatFields($files['items']);
     }
